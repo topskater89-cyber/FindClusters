@@ -1,5 +1,5 @@
 import { _decorator, Component, Node } from 'cc';
-import { DIContainer } from '../Utils/DIContainer';
+import { DependenciesContainer } from '../Utils/DependenciesContainer';
 import { Installer } from '../Installers/Abstract/Installer';
 const { ccclass, property } = _decorator;
 
@@ -9,11 +9,13 @@ export class Bootstrap extends Component {
     installers: Installer[] = [];
 
     start() {
-        let diContainer = new DIContainer();
+        let dependencies = new DependenciesContainer();
 
         for(let installer of this.installers){
-            installer.Install(diContainer);
+            installer.Install(dependencies);
         }
+
+        this.destroy();
     }
 
 

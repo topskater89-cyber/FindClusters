@@ -1,10 +1,11 @@
 import { _decorator, Component, Node } from 'cc';
-import { IDIContainer } from '../Utils/Abstract/IDIContainer';
+import { IDependenciesContainer } from '../../Utils/Abstract/IDependenciesContainer';
+
 const { ccclass, property } = _decorator;
 
 @ccclass('Installer')
 export abstract class Installer extends Component {
-    public abstract Install(diContainer: IDIContainer) : void;
+    public abstract Install(diContainer: IDependenciesContainer) : void;
 }
 
 

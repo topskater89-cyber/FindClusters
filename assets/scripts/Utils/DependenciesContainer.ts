@@ -1,10 +1,10 @@
 import { _decorator, Component, Node } from 'cc';
-import { IDIContainer } from './Abstract/IDIContainer';
+import { IDependenciesContainer } from './Abstract/IDependenciesContainer';
 
 const { ccclass, property } = _decorator;
 
-@ccclass('DIContainer')
-export class DIContainer implements IDIContainer {
+@ccclass('DependenciesContainer')
+export class DependenciesContainer implements IDependenciesContainer {
     private _dependencies = new Map<Symbol, unknown>();
 
 
