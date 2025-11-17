@@ -1,84 +1,135 @@
-import { _decorator, Color, Component, instantiate, Node, Prefab } from 'cc';
+import { _decorator, Color, Component, instantiate, Node, Prefab, CCInteger } from 'cc';
 import { BlockView } from './BlockView';
 import { Block } from '../Models/Block';
+import { IEvent } from '../Utils/Abstract/IEvent';
+import { Event } from '../Utils/Event';
+import { IBlockDrawer } from './Abstract/IBlockDrawer';
+import { MarkedBlock } from '../Models/MarkedBlock';
+
 const { ccclass, property } = _decorator;
 
 
 @ccclass('BlocksDrawer')
-export class BlocksDrawer extends Component {
+export class BlocksDrawer extends Component implements IBlockDrawer {
+
     private blockView : Prefab;
     private blocksViewsContainer : Node;
-    private blocks : BlockView[][] = [[]];
+
+    private blockViews : BlockView[][] = [[]];
+
+    private colorMap : Map<number, Color>;
+    private clusterizedBlocks: MarkedBlock[];
+
+    private _onBlocksRedrawn : Event<void>;
+
+
+    public get OnBlocksRedrawn() : IEvent<void> {
+        return this._onBlocksRedrawn;
+    }
+
+    get TotalBlocksWidth(): number {
+        const columns = this.blockViews[0].length;
+
+        return this.blockViews[0][0].Width * columns;
+    };
+
+    get TotalBlocksHeight(): number {
+        const rows = this.blockViews.length;
+
+         return this.blockViews[0][0].Height * rows;
+    };
 
     
-    public initialize(blockView : Prefab, blocksViewsContainer){
+    public initialize(blockView : Prefab, blocksViewsContainer: Node, colorMap : Map<number, Color>){
+        this._onBlocksRedrawn = new Event<void>();
+
         this.blockView = blockView;
         this.blocksViewsContainer = blocksViewsContainer;
+
+        this.colorMap = colorMap;
+    }
+
+    
+    public getClusterizedBlocks(clusterizedBlocks : MarkedBlock[]){
+        this.clusterizedBlocks = clusterizedBlocks;
+    }
+
+    
+    public redrawBlocks(blocks: Block[][]): void {
+        this.removeBlocks();
+        this.drawBlocks(blocks);
+        this.highlightClusters();
+
+        this._onBlocksRedrawn.invoke();
     }
 
 
-    public drawBlocks(blocks: Block[][]) : void{
-        this.clearBlocks();
-        this.createBlocks(blocks);
-    }
-
-
-    public drawClusters(){
-
-    }
-
-
-    private clearBlocks() : void {
-        const rows = this.blocks.length;
-        const columns = this.blocks[0].length;
+    private removeBlocks() : void {
+        const rows = this.blockViews.length;
+        const columns = this.blockViews[0].length;
 
         for (let row = 0; row < rows; row++) {
             for (let column = 0; column < columns; column++) {
-                this.blocks[row][column].destroy();
+                this.blockViews[row][column].destroy();
             }
         }
+
+        this.blockViews = [[]];
     }
 
 
-    private createBlocks(blocks: Block[][]) : void {
+    private drawBlocks(blocks: Block[][]) : void{
         const rows = blocks.length;
         const columns = blocks[0].length;
 
         for (let row = 0; row < rows; row++) {
-            this.blocks[row] = [];
+            this.blockViews[row] = [];
 
             for (let column = 0; column < columns; column++) {
-                const blockView = instantiate(this.blockView).getComponent(BlockView);
+                const blockView = this.createBlock(row, column);
 
-                this.blocksViewsContainer.addChild(blockView.node);
-                this.blocks[row][column] = blockView;
+                this.placeBlock(blockView, row, column, rows, columns);
+                this.colorizeBlock(blockView, blocks[row][column].type);
             }
         }
     }
 
 
-    private placeBlocks() : void {
-        const rows = this.blocks.length;
-        const columns = this.blocks[0].length;
+    private createBlock(row: number, column: number) : BlockView {
+        const blockView = instantiate(this.blockView).getComponent(BlockView);
 
-        for (let row = 0; row < rows; row++) {
-            for (let column = 0; column < columns; column++) {
-                const blockView = this.blocks[row][column];
+        this.blocksViewsContainer.addChild(blockView.node);
+        this.blockViews[row][column] = blockView;
 
-                blockView.setPosition(row * blockView.Width, column*blockView.Height);
-            }
-        }
+        blockView.setPosition(0,0);
 
-        //blockView.setColor(this.getRandomColor());
+        return blockView; 
     }
 
 
-    private getRandomColor(): Color {
-        return new Color(
-            Math.random() * 255,
-            Math.random() * 255,
-            Math.random() * 255
-        );
+    private placeBlock(blockView: BlockView, row: number, column: number, rows: number, columns: number) : void {
+        const xShift = columns % 2 == 0 ? columns / 2 - 0.5 :  Math.trunc(columns / 2);
+        const yShift = rows % 2 == 0 ? rows / 2 - 0.5 : Math.trunc(rows / 2);;
+        const xPos = ((column - xShift) * blockView.Width) / 100;
+        const yPos = ((row - yShift) * blockView.Height) / 100;
+
+        blockView.setPosition(xPos, yPos);
+    }
+
+
+    private colorizeBlock(blockView: BlockView, blockType: number) : void {
+        const color = this.colorMap.get(blockType);
+
+        blockView.setColor(color);
+    }   
+
+
+    private highlightClusters(){
+         for(let i = 0; i < this.clusterizedBlocks.length; i++){
+            const block = this.clusterizedBlocks[i];
+
+            this.blockViews[block.Row][block.Column].highlight();
+        }
     }
 }
 

@@ -1,15 +1,11 @@
 import { Event } from '../Utils/Event';
 import { IEvent } from '../Utils/Abstract/IEvent';
 import { _decorator, Button, Component, Node } from 'cc';
-import { BlocksDrawer } from './BlocksDrawer';
 
 const { ccclass, property } = _decorator;
 
-
-export const SceneUiToken = Symbol("SceneUi");
-
-@ccclass('SceneUi')
-export class SceneUi extends Component {
+@ccclass('GameUi')
+export class GameUi extends Component {
 
     @property(Button)
     private startButton : Button;

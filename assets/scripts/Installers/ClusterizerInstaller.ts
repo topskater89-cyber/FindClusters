@@ -1,10 +1,9 @@
+import { GameData } from './../Data/GameData';
 import { Clusterizer } from './../Models/Clusterizer';
 import { BlocksGenerator } from '../Models/BlocksGenerator';
-import { _decorator, Component, Node } from 'cc';
+import { _decorator, CCInteger, Component, Node } from 'cc';
 import { IDependenciesContainer } from '../Utils/Abstract/IDependenciesContainer';
-import { IClusterizerToken } from '../Models/Abstract/IClusterizer';
 import { Installer } from './Abstract/Installer';
-import { IBlocksGenerator, IBlocksGeneratorToken } from '../Models/Abstract/IBlocksGenerator';
 
 const { ccclass, property } = _decorator;
 
@@ -13,9 +12,11 @@ export class ClusterizerInstaller extends Installer {
     
     public Install(dependencies : IDependenciesContainer): void {
         const blockGenerator : BlocksGenerator = dependencies.get(BlocksGenerator);
-        const clusterizer = new Clusterizer();
+        const gameData : GameData = dependencies.get(GameData);
+        const clusterizer = new Clusterizer(gameData);
         
-        blockGenerator.OnBlocksGenerated.subscribe(clusterizer.findClusters.bind(this));
+        blockGenerator.OnBlocksGenerated.subscribe(clusterizer.findClusters.bind(clusterizer));
+        clusterizer.OnClustersFinded.subscribe(gameData.updateClustersData.bind(gameData));
         
         dependencies.register(Clusterizer, clusterizer);
 

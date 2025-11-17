@@ -1,15 +1,13 @@
-import { _decorator, Component, Node } from 'cc';
+import { _decorator } from 'cc';
 import { Event } from '../Utils/Event';
 import { IEvent } from '../Utils/Abstract/IEvent';
 import { IBlocksGenerator } from './Abstract/IBlocksGenerator';
 import { Block } from './Block';
+import { IBlocksGeneratorData } from '../Data/IBlocksGeneratorData';
 
 
 export class BlocksGenerator implements IBlocksGenerator {
-    private rowsCount : number;
-    private columnsCount : number;
-    private blockTypeCount : number;
-
+    private data : IBlocksGeneratorData;
     private _onBlocksGenerated: Event<Block[][]>;
 
 
@@ -18,24 +16,22 @@ export class BlocksGenerator implements IBlocksGenerator {
     }
     
 
-    public constructor(rowsCount, columnsCount, blockTypeCount){
+    public constructor(data : IBlocksGeneratorData){
         this._onBlocksGenerated = new Event();
 
-        this.rowsCount = rowsCount;
-        this.columnsCount = columnsCount;
-        this.blockTypeCount = blockTypeCount;
+        this.data = data;
     }
 
     
     public generateBlocks(){
         const blocks: Block[][] = [];
 
-        for (let row = 0; row < this.rowsCount; row++) {
+        for (let row = 0; row < this.data.BlockRowsCount; row++) {
             blocks[row] = [];
 
-            for (let column = 0; column < this.columnsCount; column++) {
-                const randomType = Math.floor(Math.random() * this.blockTypeCount);
-                const id = row * this.columnsCount + column;
+            for (let column = 0; column < this.data.BlockColumnsCount; column++) {
+                const randomType = Math.floor(Math.random() * this.data.BlockTypesCount);
+                const id = row * this.data.BlockColumnsCount + column;
 
                 blocks[row][column] = new Block(randomType, id);
             }

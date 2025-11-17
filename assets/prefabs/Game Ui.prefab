@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.Prefab",
-    "_name": "Scene Ui",
+    "_name": "Game Ui",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_native": "",
@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Scene Ui",
+    "_name": "Game Ui",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": null,
@@ -478,27 +478,6 @@
     "nestedPrefabInstanceRoots": null
   },
   {
-    "__type__": "b4f28MXJ7dCKrBRvBx9fobJ",
-    "_name": "",
-    "_objFlags": 0,
-    "__editorExtras__": {},
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "__prefab": {
-      "__id__": 19
-    },
-    "startButton": {
-      "__id__": 13
-    },
-    "_id": ""
-  },
-  {
-    "__type__": "cc.CompPrefabInfo",
-    "fileId": "bfT50sbABDFqEh2VevsNr1"
-  },
-  {
     "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
@@ -508,7 +487,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 21
+      "__id__": 19
     },
     "_contentSize": {
       "__type__": "cc.Size",
@@ -536,7 +515,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 23
+      "__id__": 21
     },
     "_alignFlags": 45,
     "_target": null,
@@ -561,6 +540,27 @@
   {
     "__type__": "cc.CompPrefabInfo",
     "fileId": "0eDPuDQQtLFbmtJVvwOVSZ"
+  },
+  {
+    "__type__": "69796+iYZlJf6E8qKuEmVdb",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": {
+      "__id__": 23
+    },
+    "startButton": {
+      "__id__": 13
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "01vcGyfQtNhoA0TO60gaZA"
   },
   {
     "__type__": "cc.PrefabInfo",
