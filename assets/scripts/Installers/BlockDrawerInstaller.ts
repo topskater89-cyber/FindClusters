@@ -17,7 +17,7 @@ export class BlockDrawerInstaller extends Installer {
 
 
     public Install(dependencies : IDependenciesContainer): void {      
-        const blocksGenerator : IBlocksGenerator = dependencies.get(IBlocksGeneratorToken);  
+        const blocksGenerator : BlocksGenerator = dependencies.get(BlocksGenerator);  
         const blocksDrawer : BlocksDrawer = new Node().addComponent(BlocksDrawer);
         blocksDrawer.initialize(this.blockView, this.blocksViewsContainer);
 

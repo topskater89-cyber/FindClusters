@@ -2,8 +2,6 @@ import { _decorator, CCInteger, Component, Node } from 'cc';
 import { IDependenciesContainer } from '../Utils/Abstract/IDependenciesContainer';
 import { BlocksGenerator } from '../Models/BlocksGenerator';
 import { Installer } from './Abstract/Installer';
-import { IBlocksGeneratorToken } from '../Models/Abstract/IBlocksGenerator';
-import { SceneUi, SceneUiToken } from '../Views/SceneUi';
 
 const { ccclass, property } = _decorator;
 
@@ -23,7 +21,7 @@ export class BlockGeneratorInstaller extends Installer {
     public Install(dependencies : IDependenciesContainer): void {        
         const blockGenerator = new BlocksGenerator(this.rowsCount, this.columnsCount, this.blockTypeCount);
 
-        dependencies.register(IBlocksGeneratorToken, blockGenerator);
+        dependencies.register(BlocksGenerator, blockGenerator);
         console.log("Block Generator Installed");
     }
     

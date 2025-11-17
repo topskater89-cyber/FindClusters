@@ -5,6 +5,4 @@ export const IBlocksGeneratorToken = Symbol('IBlocksGeneratorToken');
 
 export interface IBlocksGenerator {
     readonly OnBlocksGenerated: IEvent<Block[][]>;
-
-    generateBlocks() : void;
 }

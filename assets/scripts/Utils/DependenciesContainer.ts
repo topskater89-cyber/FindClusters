@@ -1,29 +1,25 @@
 import { _decorator, Component, Node } from 'cc';
-import { IDependenciesContainer } from './Abstract/IDependenciesContainer';
+import { Constructor, IDependenciesContainer } from './Abstract/IDependenciesContainer';
 
-const { ccclass, property } = _decorator;
+export class DependenciesContainer {
+    private _dependencies = new Map<Constructor<any>, unknown>();
 
-@ccclass('DependenciesContainer')
-export class DependenciesContainer implements IDependenciesContainer {
-    private _dependencies = new Map<Symbol, unknown>();
+    register<T>(type: Constructor<T>, instance: T): void {
+        if (this._dependencies.has(type)) {
+            throw new Error(`[DIContainer] Type '${type.name}' already registered.`);
+        }
 
+        this._dependencies.set(type, instance);
+    }
 
-    get<T>(token: Symbol): T {
-        const instance = this._dependencies.get(token);
+    get<T>(type: Constructor<T>): T {
+        const instance = this._dependencies.get(type);
 
         if (!instance) {
-            throw new Error(`[DIContainer] Instance for token '${String(token)}' not found.`);
+            throw new Error(`[DIContainer] Type '${type.name}' not registered.`);
         }
 
         return instance as T;
-    }
-
-    register<T>(token: Symbol, instance: T): void {
-        if (this._dependencies.has(token)) {
-            throw new Error(`[DIContainer] Token '${String(token)}' already registered.`);
-        }
-
-        this._dependencies.set(token, instance);
     }
 }
 

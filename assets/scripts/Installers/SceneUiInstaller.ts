@@ -3,6 +3,7 @@ import { Installer } from './Abstract/Installer';
 import { IDependenciesContainer } from '../Utils/Abstract/IDependenciesContainer';
 import { SceneUi, SceneUiToken } from '../Views/SceneUi';
 import { IBlocksGenerator, IBlocksGeneratorToken } from '../Models/Abstract/IBlocksGenerator';
+import { BlocksGenerator } from '../Models/BlocksGenerator';
 
 const { ccclass, property } = _decorator;
 
@@ -16,15 +17,14 @@ export class SceneUiInstaller extends Installer {
 
 
     public Install(dependencies: IDependenciesContainer): void {        
-        const blockGenerator : IBlocksGenerator = dependencies.get(IBlocksGeneratorToken);
+        const blockGenerator : BlocksGenerator = dependencies.get(BlocksGenerator);
         const sceneUi = instantiate(this.prefabSceneUi).getComponent(SceneUi);
 
         this.root.node.addChild(sceneUi.node);
 
         sceneUi.initialize();
         sceneUi.OnStartButtonClicked.subscribe(blockGenerator.generateBlocks.bind(blockGenerator));
-
-        dependencies.register(SceneUiToken, sceneUi);
+        
         console.log("Scene Ui Installed");
     }
     
