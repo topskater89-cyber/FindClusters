@@ -1,24 +1,23 @@
-import { _decorator, Color, Component, instantiate, Node, Prefab, CCInteger } from 'cc';
+import { _decorator, Color, Component, instantiate, Node, Prefab, CCInteger, Camera } from 'cc';
 import { BlockView } from './BlockView';
-import { Block } from '../Models/Block';
+import { Block } from '../Model/Block';
 import { IEvent } from '../Utils/Abstract/IEvent';
 import { Event } from '../Utils/Event';
 import { IBlockDrawer } from './Abstract/IBlockDrawer';
-import { MarkedBlock } from '../Models/MarkedBlock';
-
-const { ccclass, property } = _decorator;
+import { MarkedBlock } from '../Model/MarkedBlock';
 
 
-@ccclass('BlocksDrawer')
-export class BlocksDrawer extends Component implements IBlockDrawer {
-
+export class BlocksDrawer implements IBlockDrawer {
     private blockView : Prefab;
     private blocksViewsContainer : Node;
+
+    readonly REFERENCED_SIDE_LENGHT : number = 1200;
+    readonly REFERENCED_ORTHO : number = 10;
 
     private blockViews : BlockView[][] = [[]];
 
     private colorMap : Map<number, Color>;
-    private clusterizedBlocks: MarkedBlock[];
+    private gameCamera : Camera;
 
     private _onBlocksRedrawn : Event<void>;
 
@@ -40,7 +39,7 @@ export class BlocksDrawer extends Component implements IBlockDrawer {
     };
 
     
-    public initialize(blockView : Prefab, blocksViewsContainer: Node, colorMap : Map<number, Color>){
+    public constructor(blockView : Prefab, blocksViewsContainer: Node, colorMap : Map<number, Color>){
         this._onBlocksRedrawn = new Event<void>();
 
         this.blockView = blockView;
@@ -50,21 +49,24 @@ export class BlocksDrawer extends Component implements IBlockDrawer {
     }
 
     
-    public getClusterizedBlocks(clusterizedBlocks : MarkedBlock[]){
-        this.clusterizedBlocks = clusterizedBlocks;
-    }
-
-    
     public redrawBlocks(blocks: Block[][]): void {
-        this.removeBlocks();
+        this.clearBlocks();
         this.drawBlocks(blocks);
-        this.highlightClusters();
 
         this._onBlocksRedrawn.invoke();
     }
 
+ 
+    public showClusters(clusterizedBlocks : MarkedBlock[]){
+         for(let i = 0; i < clusterizedBlocks.length; i++){
+            const block = clusterizedBlocks[i];
 
-    private removeBlocks() : void {
+            this.blockViews[block.Row][block.Column].highlight();
+        }
+    }
+
+
+    private clearBlocks() : void {
         const rows = this.blockViews.length;
         const columns = this.blockViews[0].length;
 
@@ -123,13 +125,11 @@ export class BlocksDrawer extends Component implements IBlockDrawer {
         blockView.setColor(color);
     }   
 
-
-    private highlightClusters(){
-         for(let i = 0; i < this.clusterizedBlocks.length; i++){
-            const block = this.clusterizedBlocks[i];
-
-            this.blockViews[block.Row][block.Column].highlight();
-        }
+    private updateCamera(): void {
+        const maxSideLenght = this.TotalBlocksHeight >= this.TotalBlocksWidth ? 
+        this.TotalBlocksHeight : this.TotalBlocksWidth
+            
+        this.gameCamera.orthoHeight = this.REFERENCED_ORTHO * (maxSideLenght / this.REFERENCED_SIDE_LENGHT);
     }
 }
 

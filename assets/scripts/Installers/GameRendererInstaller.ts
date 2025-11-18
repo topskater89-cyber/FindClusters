@@ -1,8 +1,8 @@
-import { GameRenderer } from './../Views/GameRenderer';
+import { GameRenderer } from '../View/GameRenderer';
 import { _decorator, Button, Camera, Canvas, Component, Game, instantiate, Node, Prefab, resources} from 'cc';
 import { Installer } from './Abstract/Installer';
 import { IDependenciesContainer } from '../Utils/Abstract/IDependenciesContainer';
-import { BlocksDrawer } from '../Views/BlocksDrawer';
+import { BlocksDrawer } from '../View/BlocksDrawer';
 
 const { ccclass, property } = _decorator;
 

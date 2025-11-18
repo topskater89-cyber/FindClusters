@@ -1,10 +1,7 @@
 import { _decorator, Color, Node, Prefab } from 'cc';
 import { IDependenciesContainer } from '../Utils/Abstract/IDependenciesContainer';
-import { BlocksGenerator } from '../Models/BlocksGenerator';
 import { Installer } from './Abstract/Installer';
-import { BlocksDrawer } from '../Views/BlocksDrawer';
-import { Clusterizer } from '../Models/Clusterizer';
-import { GameData } from '../Data/GameData';
+import { BlocksDrawer } from '../View/BlocksDrawer';
 
 const { ccclass, property } = _decorator;
 
@@ -17,24 +14,16 @@ export class BlockDrawerInstaller extends Installer {
     private blocksViewsContainer : Node;
 
 
-    public Install(dependencies : IDependenciesContainer): void {      
-        const gameData : GameData = dependencies.get(GameData); 
-        const clusterizer : Clusterizer = dependencies.get(Clusterizer);
-        const blocksDrawer : BlocksDrawer = new Node().addComponent(BlocksDrawer);
-
-        const colorMap = this.generateColorMap(); 
-
-        blocksDrawer.initialize(this.blockView, this.blocksViewsContainer, colorMap);
-        clusterizer.OnClustersFinded.subscribe(blocksDrawer.redrawBlocks.bind(blocksDrawer));
+    public Install(dependencies : IDependenciesContainer): void {       
+        const blocksDrawer : BlocksDrawer = new BlocksDrawer(this.blockView, this.blocksViewsContainer, this.generateColorMap());
 
         dependencies.register(BlocksDrawer, blocksDrawer);        
-
         console.log("Block Drawer Installed");
     }
     
 
     private generateColorMap(): Map<number, Color> {
-        const colorMap : Map<number, Color> = new  Map<number, Color>()
+        const colorMap : Map<number, Color> = new Map<number, Color>()
         const DISTINCT_COLORS: Color[] = [
             new Color(230, 25, 75, 255),   // Red
             new Color(60, 180, 75, 255),   // Green

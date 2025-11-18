@@ -1,5 +1,5 @@
-import { Block } from '../Models/Block';
-import { MarkedBlock } from '../Models/MarkedBlock';
+import { Block } from '../Model/Block';
+import { MarkedBlock } from '../Model/MarkedBlock';
 import { IBlocksGeneratorData } from './IBlocksGeneratorData';
 import { IClusterizatorData } from './IClusterizatorData';
 
@@ -9,9 +9,6 @@ export class GameData implements IClusterizatorData, IBlocksGeneratorData {
     private blockColumnsCount : number;
     private blockTypesCount : number;
     private clusterSize: number;
-
-    private blocks : Block[][];
-    private clusters : MarkedBlock[];
 
 
     public get BlockRowsCount(): number {
@@ -30,14 +27,6 @@ export class GameData implements IClusterizatorData, IBlocksGeneratorData {
         return this.blockTypesCount;
     }
 
-    public get Blocks(): Block[][] {
-        return this.blocks;
-    }
-
-    public get Clusters(): MarkedBlock[] {
-        return this.clusters;
-    }
-
 
     public constructor(blockRowsCount: number, blockColumnsCount: number, blockTypesCount: number, clusterSize: number){
         this.blockRowsCount = blockRowsCount;
@@ -45,16 +34,6 @@ export class GameData implements IClusterizatorData, IBlocksGeneratorData {
         this.blockTypesCount = blockTypesCount;
         this.clusterSize = clusterSize;
 
-        this.blocks = [[]];
-        this.clusters = [];
-    }
-
-    public updateBlocksData(blocks : Block[][]){
-        this.blocks = blocks;
-    }
-
-    public updateClustersData(clusters : MarkedBlock[]) {
-        this.clusters = clusters;
     }
 
 }

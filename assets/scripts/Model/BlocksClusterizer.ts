@@ -1,33 +1,36 @@
-import { Event } from './../Utils/Event';
-import { IClusterizatorData } from './../Data/IClusterizatorData';
+import { Event } from '../Utils/Event';
+import { IClusterizatorData } from '../Data/IClusterizatorData';
 import { _decorator } from 'cc';
 import { Block } from './Block';
 import { IEvent } from '../Utils/Abstract/IEvent';
 import { MarkedBlock } from './MarkedBlock';
+import { IBlocksClusterizer } from './Abstract/IBlocksClusterizer';
 
-export class Clusterizer {
+export class BlocksClusterizer implements IBlocksClusterizer {
     private data : IClusterizatorData;
 
-    private _onClustersFinded : Event<MarkedBlock[]>;
+    private _onClustersFinded : Event<void>;
 
 
-    public get OnClustersFinded() : IEvent<MarkedBlock[]> {
+    public get OnClustersFinded() : IEvent<void> {
         return this._onClustersFinded;
     }
 
     
     constructor(data : IClusterizatorData){
-        this._onClustersFinded = new Event<MarkedBlock[]>();
+        this._onClustersFinded = new Event<void>();
 
         this.data = data;
     }
 
 
-    public findClusters(blocks : Block[][]){            
+    public findClusters(blocks : Block[][]) : MarkedBlock[]{            
         const markedBlocks = this.getMarkedBlocks(blocks);
         const clusterizedBlocks = this.runGlobalClusterization(markedBlocks);
 
-        this._onClustersFinded.invoke(clusterizedBlocks);
+        this._onClustersFinded.invoke();
+
+        return clusterizedBlocks;
     }  
 
 

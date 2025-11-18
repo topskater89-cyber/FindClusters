@@ -1,4 +1,4 @@
-import { _decorator, Button, Canvas, Component, instantiate, Node, Prefab, resources} from 'cc';
+import { _decorator, Button, Camera, Canvas, Component, instantiate, Node, Prefab, resources} from 'cc';
 import { Installer } from './Abstract/Installer';
 import { IDependenciesContainer } from '../Utils/Abstract/IDependenciesContainer';
 import { GameUi } from '../View/GameUi';
@@ -6,10 +6,13 @@ import { GameModel } from '../Model/GameModel';
 
 const { ccclass, property } = _decorator;
 
-@ccclass('GameUiInstaller')
-export class GameUiInstaller extends Installer {
+@ccclass('Game View Installer')
+export class GameViewInstaller extends Installer {
     @property({type: Canvas,  group: { name: '⚙️ Scene Objects' }})
     private root : Canvas;
+
+    @property({type: Camera,  group: { name: '⚙️ Scene Objects' }})
+    private gameCamera : Camera;
 
     @property({type: Prefab,  group: { name: '⚙️ Prefabs' }})
     private prefabSceneUi : Prefab;
