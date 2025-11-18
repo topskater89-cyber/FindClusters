@@ -2,10 +2,12 @@ import { _decorator, Color, Node, Prefab } from 'cc';
 import { IDependenciesContainer } from '../Utils/Abstract/IDependenciesContainer';
 import { Installer } from './Abstract/Installer';
 import { BlocksDrawer } from '../View/BlocksDrawer';
+import { IGameModel } from '../Model/Abstract/IGameModel';
+import { GameModel } from '../Model/GameModel';
 
 const { ccclass, property } = _decorator;
 
-@ccclass('BlockDrawerInstaller')
+@ccclass('Blocks Drawer Installer')
 export class BlockDrawerInstaller extends Installer {
     @property({type: Prefab,  group: { name: '⚙️ Prefabs' }})
     private blockView : Prefab;
@@ -15,15 +17,18 @@ export class BlockDrawerInstaller extends Installer {
 
 
     public Install(dependencies : IDependenciesContainer): void {       
+        const gameModel : GameModel = dependencies.get(GameModel);
         const blocksDrawer : BlocksDrawer = new BlocksDrawer(this.blockView, this.blocksViewsContainer, this.generateColorMap());
 
+        gameModel.OnComputeCompleted.subscribe(blocksDrawer.redraw.bind(blocksDrawer));
+
         dependencies.register(BlocksDrawer, blocksDrawer);        
-        console.log("Block Drawer Installed");
+        console.log("Blocks Drawer Installed");
     }
     
 
     private generateColorMap(): Map<number, Color> {
-        const colorMap : Map<number, Color> = new Map<number, Color>()
+        let colorMap : Map<number, Color> = new Map<number, Color>()
         const DISTINCT_COLORS: Color[] = [
             new Color(230, 25, 75, 255),   // Red
             new Color(60, 180, 75, 255),   // Green

@@ -1,6 +1,6 @@
 import { Event } from '../Utils/Event';
 import { IEvent } from '../Utils/Abstract/IEvent';
-import { _decorator, Button, Component, Node } from 'cc';
+import { _decorator, Button, Component, EditBox, Node } from 'cc';
 
 const { ccclass, property } = _decorator;
 
@@ -8,19 +8,28 @@ const { ccclass, property } = _decorator;
 export class GameUi extends Component {
 
     @property(Button)
-    private startButton : Button;
+    public StartButton : Button;
 
-    private _onStartButtonClicked : Event<void>;
+    @property(EditBox)
+    public RowsEBox : EditBox;
+
+    @property(EditBox)
+    public ColumnsEBox : EditBox;
+
+    @property(EditBox)
+    public TypesEBox : EditBox;
+
+    @property(EditBox)
+    public ClusterSizeEBox : EditBox;
+
+    public OnStartButtonClicked : Event<void>;
 
 
-    public get OnStartButtonClicked() : IEvent<void>{
-        return this._onStartButtonClicked;
-    };
+    public initialize(canvas : Node) : void {
+        this.OnStartButtonClicked = new Event();
+        this.StartButton.node.on(Button.EventType.CLICK, () => {this.OnStartButtonClicked.invoke();})
 
-    public initialize() : void {
-        this._onStartButtonClicked = new Event();
-
-        this.startButton.node.on(Button.EventType.CLICK, () => {this._onStartButtonClicked.invoke();})
+        canvas.addChild(this.node);
     }
 }
 

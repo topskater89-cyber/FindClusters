@@ -180,10 +180,10 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "blockRowsCount": 25,
-    "blockColumnsCount": 25,
-    "blockTypesCount": 5,
-    "clusterSize": 8,
+    "blockRowsCount": 5,
+    "blockColumnsCount": 5,
+    "blockTypesCount": 10,
+    "clusterSize": 2,
     "_id": "e0dGEJQVlCbI+SwNf7iyiH"
   },
   {
@@ -289,7 +289,7 @@
     "_id": "c9L3/pxO9OmJb9G6Qih/in"
   },
   {
-    "__type__": "28ecbfXvJ1JNYE1/+QrnTNo",
+    "__type__": "ad9d9s4u1hFGq30k8D+8EOX",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -305,7 +305,7 @@
     "blocksViewsContainer": {
       "__id__": 9
     },
-    "_id": "56UWLYUtFKdImJ7v5sWU0u"
+    "_id": "cdXweXNsZB74XS7gBIwI8m"
   },
   {
     "__type__": "cc.Node",
@@ -602,7 +602,7 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "root": {
+    "canvas": {
       "__id__": 17
     },
     "prefabSceneUi": {
@@ -753,7 +753,7 @@
     },
     "_depth": 1,
     "_stencil": 0,
-    "_clearFlags": 0,
+    "_clearFlags": 6,
     "_rect": {
       "__type__": "cc.Rect",
       "x": 0,

@@ -1,5 +1,3 @@
-import { Block } from '../Model/Block';
-import { MarkedBlock } from '../Model/MarkedBlock';
 import { IBlocksGeneratorData } from './IBlocksGeneratorData';
 import { IClusterizatorData } from './IClusterizatorData';
 
@@ -27,13 +25,28 @@ export class GameData implements IClusterizatorData, IBlocksGeneratorData {
         return this.blockTypesCount;
     }
 
+    public setBlockRowsCount(value : number){
+         this.blockRowsCount = value;
+    }
 
+    public setBlockColumnsCount(value : number){
+        this.blockColumnsCount = value;
+    }
+
+    public setBlockTypesCount(value : number){
+        this.blockTypesCount = value;
+    }
+
+    public setClusterSize(value : number){
+        this.clusterSize = value;
+    }
+
+    
     public constructor(blockRowsCount: number, blockColumnsCount: number, blockTypesCount: number, clusterSize: number){
         this.blockRowsCount = blockRowsCount;
         this.blockColumnsCount = blockColumnsCount;
         this.blockTypesCount = blockTypesCount;
         this.clusterSize = clusterSize;
-
     }
 
 }

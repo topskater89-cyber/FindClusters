@@ -17,7 +17,7 @@ export class GameRendererInstaller extends Installer {
         const blocksDrawer = dependencies.get(BlocksDrawer);     
         const gameRenderer = new GameRenderer(this.gameCamera, blocksDrawer);
         
-        blocksDrawer.OnBlocksRedrawn.subscribe(gameRenderer.updateCamera.bind(gameRenderer));
+        blocksDrawer.OnDrawingEnded.subscribe(gameRenderer.updateCamera.bind(gameRenderer));
 
         console.log("Game Renderer Installed");
     }
