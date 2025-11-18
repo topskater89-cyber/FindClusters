@@ -1,10 +1,10 @@
 import { IEvent } from "../../Utils/Abstract/IEvent";
-import { Block } from "../Block";
+import { SymbolData } from "../SymbolData";
 import { MarkedBlock } from "../MarkedBlock";
 
 export interface IBlocksClusterizer {
     readonly OnClustersFinded : IEvent<void>;
-    findClusters(blocks : Block[][]) : MarkedBlock[];
+    findClusters(blocks : SymbolData[][]) : MarkedBlock[];
 }
 
 

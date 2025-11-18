@@ -1,7 +1,7 @@
 import { Event } from '../Utils/Event';
 import { IClusterizatorData } from '../Data/IClusterizatorData';
 import { _decorator } from 'cc';
-import { Block } from './Block';
+import { SymbolData } from './SymbolData';
 import { IEvent } from '../Utils/Abstract/IEvent';
 import { MarkedBlock } from './MarkedBlock';
 import { IBlocksClusterizer } from './Abstract/IBlocksClusterizer';
@@ -24,7 +24,7 @@ export class BlocksClusterizer implements IBlocksClusterizer {
     }
 
 
-    public findClusters(blocks : Block[][]) : MarkedBlock[]{            
+    public findClusters(blocks : SymbolData[][]) : MarkedBlock[]{            
         const markedBlocks = this.getMarkedBlocks(blocks);
         const clusterizedBlocks = this.runGlobalClusterization(markedBlocks);
 
@@ -34,7 +34,7 @@ export class BlocksClusterizer implements IBlocksClusterizer {
     }  
 
 
-    private getMarkedBlocks(blocks : Block[][]) : MarkedBlock[][] {
+    private getMarkedBlocks(blocks : SymbolData[][]) : MarkedBlock[][] {
         const rows = blocks.length;
         const columns = blocks[0].length;
 

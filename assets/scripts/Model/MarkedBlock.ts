@@ -1,7 +1,7 @@
-import { Block } from "./Block";
+import { SymbolData } from "./SymbolData";
 
 export class MarkedBlock {
-    private block : Block;
+    private block : SymbolData;
     private row : number;
     private column : number;
     private isMarked : boolean;
@@ -28,7 +28,7 @@ export class MarkedBlock {
     }
 
 
-    public constructor(block : Block, row : number, column : number){
+    public constructor(block : SymbolData, row : number, column : number){
         this.block = block;
         this.row = row;
         this.column = column;

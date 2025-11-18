@@ -1,6 +1,6 @@
 import { IBlocksClusterizer } from './Abstract/IBlocksClusterizer';
 import { IBlocksGenerator } from "./Abstract/IBlocksGenerator";
-import { Block } from './Block';
+import { SymbolData } from './SymbolData';
 import { MarkedBlock } from './MarkedBlock';
 import { Event } from '../Utils/Event';
 import { IEvent } from '../Utils/Abstract/IEvent';
@@ -8,12 +8,12 @@ import { IGameModel } from './Abstract/IGameModel';
 
 export class GameModel implements IGameModel {
 
-    private _onComputeCompleted : Event<[Block[][], MarkedBlock[]]>;
+    private _onComputeCompleted : Event<[SymbolData[][], MarkedBlock[]]>;
 
     private generator : IBlocksGenerator;
     private clusterizer : IBlocksClusterizer;
 
-    public get OnComputeCompleted() : IEvent<[Block[][], MarkedBlock[]]>{
+    public get OnComputeCompleted() : IEvent<[SymbolData[][], MarkedBlock[]]>{
         return this._onComputeCompleted;
     }
 
@@ -21,7 +21,7 @@ export class GameModel implements IGameModel {
         this.generator = generator;
         this.clusterizer = clusterizer;
 
-        this._onComputeCompleted = new Event<[Block[][], MarkedBlock[]]>();
+        this._onComputeCompleted = new Event<[SymbolData[][], MarkedBlock[]]>();
     }
 
     public compute(){

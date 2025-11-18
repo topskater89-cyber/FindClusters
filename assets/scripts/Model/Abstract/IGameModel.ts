@@ -1,8 +1,8 @@
 import { IEvent } from "../../Utils/Abstract/IEvent";
-import { Block } from "../Block";
+import { SymbolData } from "../SymbolData";
 import { MarkedBlock } from "../MarkedBlock";
 
 export interface IGameModel {
-    OnComputeCompleted : IEvent<[Block[][], MarkedBlock[]]>
+    OnComputeCompleted : IEvent<[SymbolData[][], MarkedBlock[]]>
     compute();
 }

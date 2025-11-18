@@ -1,52 +1,47 @@
 import { IBlocksGeneratorData } from './IBlocksGeneratorData';
 import { IClusterizatorData } from './IClusterizatorData';
+import { ModelData } from './ModelData';
 
 
 export class GameData implements IClusterizatorData, IBlocksGeneratorData {
-    private blockRowsCount : number;
-    private blockColumnsCount : number;
-    private blockTypesCount : number;
-    private clusterSize: number;
+    private modelData : ModelData;
 
 
-    public get BlockRowsCount(): number {
-        return this.blockRowsCount;
+    public get SymbolRowsCount(): number {
+        return this.modelData.SymbolRowsCount;
     }
 
-    public get BlockColumnsCount(): number {
-        return this.blockColumnsCount;
+    public get SymbolColumnsCount(): number {
+        return this.modelData.SymbolColumnsCount;
     }
 
     public get ClusterSize(): number {
-        return this.clusterSize;
+        return this.modelData.ClusterSize;
     }
     
-    public get BlockTypesCount(): number {
-        return this.blockTypesCount;
+    public get SymbolTypesCount(): number {
+        return this.modelData.SymbolTypesCount;
     }
 
-    public setBlockRowsCount(value : number){
-         this.blockRowsCount = value;
+    public setSymbolRowsCount(value : number){
+        this.modelData.SymbolRowsCount = value;
     }
 
-    public setBlockColumnsCount(value : number){
-        this.blockColumnsCount = value;
+    public setSymbolColumnsCount(value : number){
+        this.modelData.SymbolColumnsCount = value;
     }
 
-    public setBlockTypesCount(value : number){
-        this.blockTypesCount = value;
+    public setSymbolTypesCount(value : number){
+        this.modelData.SymbolTypesCount = value;
     }
 
     public setClusterSize(value : number){
-        this.clusterSize = value;
+        this.modelData.ClusterSize = value;
     }
 
     
-    public constructor(blockRowsCount: number, blockColumnsCount: number, blockTypesCount: number, clusterSize: number){
-        this.blockRowsCount = blockRowsCount;
-        this.blockColumnsCount = blockColumnsCount;
-        this.blockTypesCount = blockTypesCount;
-        this.clusterSize = clusterSize;
+    public constructor(modelData : ModelData){
+        this.modelData = modelData;
     }
 
 }

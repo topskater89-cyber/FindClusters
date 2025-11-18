@@ -7,7 +7,7 @@ import { GameData } from '../Data/GameData';
 
 const { ccclass, property } = _decorator;
 
-@ccclass('GameUiInstaller')
+@ccclass('Game Ui Installer')
 export class GameUiInstaller extends Installer {
     @property({type: Canvas,  group: { name: '⚙️ Scene Objects' }})
     private canvas : Canvas;
@@ -24,14 +24,14 @@ export class GameUiInstaller extends Installer {
         gameUi.initialize(this.canvas.node);
         gameUi.OnStartButtonClicked.subscribe(gameModel.compute.bind(gameModel));
 
-        gameUi.RowsEBox.string = gameData.BlockRowsCount.toString();
-        gameUi.ColumnsEBox.string = gameData.BlockColumnsCount.toString()
-        gameUi.TypesEBox.string = gameData.BlockTypesCount.toString()
+        gameUi.RowsEBox.string = gameData.SymbolRowsCount.toString();
+        gameUi.ColumnsEBox.string = gameData.SymbolColumnsCount.toString()
+        gameUi.TypesEBox.string = gameData.SymbolTypesCount.toString()
         gameUi.ClusterSizeEBox.string = gameData.ClusterSize.toString()
 
-        gameUi.RowsEBox.node.on("editing-did-ended", (editBox : EditBox)=>{gameData.setBlockRowsCount(Number(editBox.string));}, this);
-        gameUi.ColumnsEBox.node.on("editing-did-ended", (editBox : EditBox)=>{gameData.setBlockColumnsCount(Number(editBox.string));}, this);
-        gameUi.TypesEBox.node.on("editing-did-ended", (editBox : EditBox)=>{gameData.setBlockTypesCount(Number(editBox.string));}, this);
+        gameUi.RowsEBox.node.on("editing-did-ended", (editBox : EditBox)=>{gameData.setSymbolRowsCount(Number(editBox.string));}, this);
+        gameUi.ColumnsEBox.node.on("editing-did-ended", (editBox : EditBox)=>{gameData.setSymbolColumnsCount(Number(editBox.string));}, this);
+        gameUi.TypesEBox.node.on("editing-did-ended", (editBox : EditBox)=>{gameData.setSymbolTypesCount(Number(editBox.string));}, this);
         gameUi.ClusterSizeEBox.node.on("editing-did-ended", (editBox : EditBox)=>{gameData.setClusterSize(Number(editBox.string));}, this);
 
         console.log("Game Ui Installed");

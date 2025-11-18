@@ -2,7 +2,7 @@ import { IBlocksGenerator } from './Abstract/IBlocksGenerator';
 import { _decorator } from 'cc';
 import { Event } from '../Utils/Event';
 import { IEvent } from '../Utils/Abstract/IEvent';
-import { Block } from './Block';
+import { SymbolData } from './SymbolData';
 import { IBlocksGeneratorData } from '../Data/IBlocksGeneratorData';
 
 
@@ -23,17 +23,17 @@ export class BlocksGenerator implements IBlocksGenerator {
     }
 
     
-    public generateBlocks() : Block[][] {
-        let blocks: Block[][] = [];
+    public generateBlocks() : SymbolData[][] {
+        let blocks: SymbolData[][] = [];
 
-        for (let row = 0; row < this.data.BlockRowsCount; row++) {
+        for (let row = 0; row < this.data.SymbolRowsCount; row++) {
             blocks[row] = [];
 
-            for (let column = 0; column < this.data.BlockColumnsCount; column++) {
-                let randomType = Math.floor(Math.random() * this.data.BlockTypesCount);
-                let id = row * this.data.BlockColumnsCount + column;
+            for (let column = 0; column < this.data.SymbolColumnsCount; column++) {
+                let randomType = Math.floor(Math.random() * this.data.SymbolTypesCount);
+                let id = row * this.data.SymbolColumnsCount + column;
 
-                blocks[row][column] = new Block(randomType, id);
+                blocks[row][column] = new SymbolData(randomType, id);
             }
         }
 

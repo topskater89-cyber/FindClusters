@@ -1,8 +1,8 @@
 import { IEvent } from '../../Utils/Abstract/IEvent';
-import { Block } from '../Block';
+import { SymbolData } from '../SymbolData';
 
 export interface IBlocksGenerator {
     readonly OnBlocksGenerated: IEvent<void>;
 
-    generateBlocks() : Block[][];
+    generateBlocks() : SymbolData[][];
 }
