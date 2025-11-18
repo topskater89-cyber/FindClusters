@@ -69,8 +69,7 @@ export class BlocksDrawer implements IBlockDrawer {
 
         for (let row = 0; row < rows; row++) {
             for (let column = 0; column < columns; column++) {
-                this.blockViews[row][column].node.active = false;
-                this.blockViews[row][column].destroy();
+                this.blockViews[row][column].node.destroy();
             }
         }
 
