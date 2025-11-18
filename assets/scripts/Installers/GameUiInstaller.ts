@@ -24,6 +24,11 @@ export class GameUiInstaller extends Installer {
         gameUi.initialize(this.canvas.node);
         gameUi.OnStartButtonClicked.subscribe(gameModel.compute.bind(gameModel));
 
+        gameUi.RowsEBox.string = gameData.BlockRowsCount.toString();
+        gameUi.ColumnsEBox.string = gameData.BlockColumnsCount.toString()
+        gameUi.TypesEBox.string = gameData.BlockTypesCount.toString()
+        gameUi.ClusterSizeEBox.string = gameData.ClusterSize.toString()
+
         gameUi.RowsEBox.node.on("editing-did-ended", (editBox : EditBox)=>{gameData.setBlockRowsCount(Number(editBox.string));}, this);
         gameUi.ColumnsEBox.node.on("editing-did-ended", (editBox : EditBox)=>{gameData.setBlockColumnsCount(Number(editBox.string));}, this);
         gameUi.TypesEBox.node.on("editing-did-ended", (editBox : EditBox)=>{gameData.setBlockTypesCount(Number(editBox.string));}, this);

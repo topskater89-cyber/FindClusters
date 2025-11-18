@@ -180,10 +180,10 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "blockRowsCount": 5,
-    "blockColumnsCount": 5,
-    "blockTypesCount": 10,
-    "clusterSize": 2,
+    "blockRowsCount": 7,
+    "blockColumnsCount": 8,
+    "blockTypesCount": 5,
+    "clusterSize": 5,
     "_id": "e0dGEJQVlCbI+SwNf7iyiH"
   },
   {

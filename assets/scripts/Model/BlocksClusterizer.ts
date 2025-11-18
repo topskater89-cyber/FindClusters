@@ -67,8 +67,9 @@ export class BlocksClusterizer implements IBlocksClusterizer {
                 if(!block.IsMarked){
                     let cluster = this.runLocalClusterization(blocks, block);
 
-                    if(cluster.length >= this.data.ClusterSize)
+                    if(cluster.length >= this.data.ClusterSize){
                         clusterizedBlocks = clusterizedBlocks.concat(cluster);
+                    }
                 }
             }
         }
@@ -82,27 +83,23 @@ export class BlocksClusterizer implements IBlocksClusterizer {
 
         let relatedBlocks = [block];
         let cluster : MarkedBlock[] = [];
-        
+
+        block.mark();
+
         while(relatedBlocks.length !== 0) {
             let currentBlock = relatedBlocks[0];
-            currentBlock.mark();
 
+            let upBlock = currentBlock.Row - 1 >= 0 ? blocks[currentBlock.Row - 1][currentBlock.Column] : undefined
             let downBlock = currentBlock.Row + 1 < rows ? blocks[currentBlock.Row + 1][currentBlock.Column] : undefined
             let leftBlock = currentBlock.Column - 1 >= 0 ? blocks[currentBlock.Row][currentBlock.Column - 1] : undefined;
             let rightBlock = currentBlock.Column + 1 < columns ? blocks[currentBlock.Row][currentBlock.Column + 1] : undefined;
         
-            
-            if(downBlock !== undefined && downBlock.Type === currentBlock.Type && !downBlock.IsMarked) {
-                relatedBlocks.push(downBlock);
-            }
-
-            if(leftBlock !== undefined && leftBlock.Type === currentBlock.Type && !leftBlock.IsMarked) {
-                relatedBlocks.push(leftBlock);
-            }
-
-            if(rightBlock !== undefined && rightBlock.Type === currentBlock.Type && !rightBlock.IsMarked) {
-                relatedBlocks.push(rightBlock);
-            }
+            [upBlock, downBlock, leftBlock, rightBlock].forEach((block)=> {
+                 if(block !== undefined && block.Type === currentBlock.Type && !block.IsMarked) {
+                    relatedBlocks.push(block);
+                    block.mark();
+                }
+            });
 
             cluster.push(currentBlock);
             relatedBlocks.shift();
