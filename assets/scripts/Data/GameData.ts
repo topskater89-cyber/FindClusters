@@ -1,47 +1,24 @@
-import { IBlocksGeneratorData } from './IBlocksGeneratorData';
-import { IClusterizatorData } from './IClusterizatorData';
 import { ModelData } from './ModelData';
+import { ViewData } from './ViewData';
 
 
-export class GameData implements IClusterizatorData, IBlocksGeneratorData {
+export class GameData {
     private modelData : ModelData;
+    private viewData : ViewData;
 
-
-    public get SymbolRowsCount(): number {
-        return this.modelData.SymbolRowsCount;
-    }
-
-    public get SymbolColumnsCount(): number {
-        return this.modelData.SymbolColumnsCount;
-    }
-
-    public get ClusterSize(): number {
-        return this.modelData.ClusterSize;
-    }
     
-    public get SymbolTypesCount(): number {
-        return this.modelData.SymbolTypesCount;
+    public get ModelData() : ModelData {
+        return this.modelData;
     }
 
-    public setSymbolRowsCount(value : number){
-        this.modelData.SymbolRowsCount = value;
-    }
-
-    public setSymbolColumnsCount(value : number){
-        this.modelData.SymbolColumnsCount = value;
-    }
-
-    public setSymbolTypesCount(value : number){
-        this.modelData.SymbolTypesCount = value;
-    }
-
-    public setClusterSize(value : number){
-        this.modelData.ClusterSize = value;
+    public get ViewData() : ViewData {
+        return this.viewData;
     }
 
     
-    public constructor(modelData : ModelData){
+    public constructor(modelData : ModelData, viewData : ViewData){
         this.modelData = modelData;
+        this.viewData = viewData;
     }
 
 }

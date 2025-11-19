@@ -1,4 +1,4 @@
-import { _decorator, Component, UITransform, Vec2, Vec3, sp } from 'cc';
+import { _decorator, Component, UITransform, Vec2, Vec3, sp, CCString } from 'cc';
 import { ISymbol } from './Abstract/ISymbol';
 
 const { ccclass, property } = _decorator;
@@ -10,6 +10,9 @@ export class Symbol extends Component implements ISymbol {
 
     @property(sp.Skeleton)
     private spine : sp.Skeleton;
+
+    @property(CCString)
+    private type : string;
 
 
     public get Width() : number { return this.body.width; };
@@ -27,12 +30,9 @@ export class Symbol extends Component implements ISymbol {
         this.body.node.position = new Vec3(position.x, position.y, this.body.node.position.z); 
     };
 
-    public get Type(): string { return this.Type; }
-    public set Type(type : string) { 
-        this.Type = type; 
-    }
+    public get Type(): string { return this.type; }
 
-
+    
     public highlight() : void {
         
     }

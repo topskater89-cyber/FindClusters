@@ -2,9 +2,9 @@ import { _decorator, CCInteger, game } from 'cc';
 import { IDependenciesContainer } from '../Utils/Abstract/IDependenciesContainer';
 import { BlocksGenerator } from '../Model/BlocksGenerator';
 import { Installer } from './Abstract/Installer';
-import { GameData } from '../Data/GameData';
 import { BlocksClusterizer } from '../Model/BlocksClusterizer';
 import { GameModel } from '../Model/GameModel';
+import { ModelData } from '../Data/ModelData';
 
 const { ccclass, property } = _decorator;
 
@@ -12,10 +12,10 @@ const { ccclass, property } = _decorator;
 export class GameModelInstaller extends Installer {
 
     public Install(dependencies : IDependenciesContainer): void {        
-        const gameData = dependencies.get(GameData);
+        const modelData = dependencies.get(ModelData);
 
-        const blocksGenerator = new BlocksGenerator(gameData);
-        const blocksClusterizer = new BlocksClusterizer(gameData);
+        const blocksGenerator = new BlocksGenerator(modelData);
+        const blocksClusterizer = new BlocksClusterizer(modelData);
         const gameModel = new GameModel(blocksGenerator, blocksClusterizer);
 
         dependencies.register(GameModel, gameModel);

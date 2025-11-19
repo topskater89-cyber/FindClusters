@@ -26,14 +26,14 @@ export class BlocksGenerator implements IBlocksGenerator {
     public generateBlocks() : SymbolData[][] {
         let blocks: SymbolData[][] = [];
 
-        for (let row = 0; row < this.data.SymbolRowsCount; row++) {
+        for (let row = 0; row < this.data.RowsCount; row++) {
             blocks[row] = [];
 
-            for (let column = 0; column < this.data.SymbolColumnsCount; column++) {
-                let randomType = Math.floor(Math.random() * this.data.SymbolTypesCount);
-                let id = row * this.data.SymbolColumnsCount + column;
+            for (let column = 0; column < this.data.ColumnsCount; column++) {
+                let randomType = Math.floor(Math.random() * this.data.Types.length);
+                let id = row * this.data.ColumnsCount + column;
 
-                blocks[row][column] = new SymbolData(randomType, id);
+                blocks[row][column] = new SymbolData(this.data.Types[randomType], id);
             }
         }
 

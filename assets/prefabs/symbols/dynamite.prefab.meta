@@ -2,12 +2,12 @@
   "ver": "1.1.50",
   "importer": "prefab",
   "imported": true,
-  "uuid": "9e7d8408-9d31-4563-a6d1-90467c8359e1",
+  "uuid": "c7c52ac8-1cbe-427a-869a-4693e47afef8",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "Game Ui"
+    "syncNodeName": "dynamite"
   }
 }

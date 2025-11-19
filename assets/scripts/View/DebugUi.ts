@@ -4,8 +4,8 @@ import { _decorator, Button, Component, EditBox, Node } from 'cc';
 
 const { ccclass, property } = _decorator;
 
-@ccclass('GameUi')
-export class GameUi extends Component {
+@ccclass('DebugUi')
+export class DebugUi extends Component {
 
     @property(Button)
     public StartButton : Button;

@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.Prefab",
-    "_name": "Game Ui",
+    "_name": "Debug Ui",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_native": "",
@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Game Ui",
+    "_name": "Debug Ui",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": null,
@@ -3341,7 +3341,7 @@
     "fileId": "0eDPuDQQtLFbmtJVvwOVSZ"
   },
   {
-    "__type__": "69796+iYZlJf6E8qKuEmVdb",
+    "__type__": "5a7f6Lw0/hJx7aJkHdZhtuM",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -3371,7 +3371,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "01vcGyfQtNhoA0TO60gaZA"
+    "fileId": "15mbh0hp9IM4MBsgK0oUZD"
   },
   {
     "__type__": "cc.PrefabInfo",

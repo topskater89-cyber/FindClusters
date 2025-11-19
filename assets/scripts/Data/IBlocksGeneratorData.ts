@@ -1,5 +1,5 @@
 export interface IBlocksGeneratorData {
-    readonly SymbolRowsCount : number;
-    readonly SymbolColumnsCount : number;
-    readonly SymbolTypesCount : number;
+    readonly RowsCount : number;
+    readonly ColumnsCount : number;
+    readonly Types : string[];
 }
