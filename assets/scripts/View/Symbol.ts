@@ -38,7 +38,7 @@ export class Symbol extends Component implements ISymbol {
     }
     
     public remove() : void {
-
+        this.node.destroy();
     }
 
     

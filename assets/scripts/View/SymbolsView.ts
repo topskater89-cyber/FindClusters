@@ -1,83 +1,80 @@
-import { _decorator, Color, Component, instantiate, Node, Prefab, CCInteger, Camera, Vec3, Vec2 } from 'cc';
-import { Symbol } from './Symbol';
-import { SymbolData } from '../Model/SymbolData';
+import { _decorator, Vec2 } from 'cc';
 import { IEvent } from '../Utils/Abstract/IEvent';
 import { Event } from '../Utils/Event';
 import { ISymbolsView } from './Abstract/ISymbolsView';
 import { MarkedBlock } from '../Model/MarkedBlock';
 import { ISymbolFactory } from './Abstract/ISymbolFactory';
+import { SymbolsData } from '../Model/SymbolsData';
+import { ISymbol } from './Abstract/ISymbol';
 
 
 export class SymbolsView implements ISymbolsView {
-    private _onDrawingEnded : Event<void>;
+    private _onFieldFilled : Event<void>;
 
     private symbolsFactory : ISymbolFactory;
-    private symbols : Symbol[][] = [[]];
+    private field : ISymbol[][] = [[]];
 
 
-    public get OnDrawingEnded() : IEvent<void> {
-        return this._onDrawingEnded;
+    public get OnFieldFilled() : IEvent<void> {
+        return this._onFieldFilled;
     }
     
     public constructor(symbolsFactory : ISymbolFactory){
-        this._onDrawingEnded = new Event<void>();
+        this._onFieldFilled = new Event<void>();
         this.symbolsFactory = symbolsFactory;
     }
 
 
-    public redraw(data: [SymbolData[][], MarkedBlock[]]): void {
-        this.removeSymbols();
+    public redraw(data: [SymbolsData, MarkedBlock[]]): void {
+        this.clearField();
 
-        this.drawSymbols(data[0]);
-        this.highlightSymbols(data[1]);
+        this.fillField(data[0]);
 
-        this._onDrawingEnded.invoke();
+        this._onFieldFilled.invoke();
     }
 
  
-    private highlightSymbols(clusterizedBlocks : MarkedBlock[]){
-         for(let i = 0; i < clusterizedBlocks.length; i++){
-            const block = clusterizedBlocks[i];
-
-            this.symbols[block.Row][block.Column].highlight();
+    private highlightSymbols(clusterizedSymbols : MarkedBlock[]){
+         for(let i = 0; i < clusterizedSymbols.length; i++){
+            const symbol = clusterizedSymbols[i];
         }
     }
 
 
-    private removeSymbols() : void {
-        const rows = this.symbols.length;
-        const columns = this.symbols[0].length;
+    private clearField() : void {
+        const rows = this.field.length;
+        const columns = this.field[0].length;
 
         for (let row = 0; row < rows; row++) {
             for (let column = 0; column < columns; column++) 
-                this.symbols[row][column].remove();
+                this.field[row][column].remove();
         }
 
-        this.symbols = [[]];
+        this.field = [[]];
     }
 
 
-    private drawSymbols(blocks: SymbolData[][]) : void{
-        const rows = blocks.length;
-        const columns = blocks[0].length;
+    private fillField(symbolsData: SymbolsData) : void{
+        for (let row = 0; row < symbolsData.Rows; row++) {
+            this.field[row] = [];
 
-        for (let row = 0; row < rows; row++) {
-            this.symbols[row] = [];
+            for (let column = 0; column < symbolsData.Columns; column++) {
+                const symbolData = symbolsData.getSymbolData(row, column);
+                const symbolView = this.symbolsFactory.create(symbolData.type);
 
-            for (let column = 0; column < columns; column++) {
-                const block = blocks[row][column];
-                const symbolView = this.symbolsFactory.create("");
+                this.field[row][column] = symbolView;
 
+                this.placeSymbol(symbolView, row, column, symbolsData.Rows, symbolsData.Columns);
             }
         }
     }
     
 
-    private placeSymbol(symbol: Symbol, row: number, column: number, rows: number, columns: number) : void {
+    private placeSymbol(symbol: ISymbol, row: number, column: number, rows: number, columns: number) : void {
         const xShift = columns % 2 == 0 ? columns / 2 - 0.5 :  Math.trunc(columns / 2);
-        const yShift = rows % 2 == 0 ? rows / 2 - 0.5 : Math.trunc(rows / 2);;
-        const xPos = ((column - xShift) * symbol.Width) / 100;
-        const yPos = ((row - yShift) * symbol.Height) / 100;
+        const yShift = rows % 2 == 0 ? rows / 2 - 0.5 : Math.trunc(rows / 2);
+        const xPos = ((column - xShift) * symbol.Width);
+        const yPos = ((row - yShift) * symbol.Height);
 
         symbol.Position = new Vec2(xPos, yPos);
     } 

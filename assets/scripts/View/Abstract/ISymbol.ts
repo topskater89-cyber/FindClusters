@@ -4,6 +4,9 @@ export interface ISymbol {
     Width : number;
     Height : number;
     Position : Vec2;
+
+    highlight() : void;
+    remove(): void;
 }
 
 

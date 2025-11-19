@@ -10,10 +10,6 @@ export class ViewData {
     public get SymbolPrefabs(): Prefab[] {
         return this.symbols;
     }
-
-    public constructor(symbols : Prefab[]) {
-        this.symbols = symbols;
-    }
 }
 
 
