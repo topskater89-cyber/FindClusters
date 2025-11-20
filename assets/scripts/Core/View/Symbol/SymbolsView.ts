@@ -40,9 +40,8 @@ export class SymbolsView implements ISymbolsView {
             this.symbolsTable[symbol.Row][symbol.Column].highlight(() => {
                 highlightedSymbols++;
                 
-                if(highlightedSymbols === cluster.Symbols.length){
+                if(highlightedSymbols === cluster.Symbols.length)
                     resolve();
-                }
             });
         }));
     }

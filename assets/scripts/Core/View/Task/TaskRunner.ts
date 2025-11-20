@@ -21,7 +21,7 @@ export class TaskRunner {
         this.tasks = tasks;
 
         for(let i = 0; i < this.tasks.length; i++){
-              await this.tasks[i].run();
+            await this.tasks[i].run();
         }
 
         this._onTasksEnded.invoke();
