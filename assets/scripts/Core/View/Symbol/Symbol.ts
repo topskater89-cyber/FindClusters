@@ -1,5 +1,5 @@
 import { _decorator, Component, UITransform, Vec2, Vec3, sp, CCString } from 'cc';
-import { ISymbol } from './Abstract/ISymbol';
+import { ISymbol } from '../Abstract/ISymbol';
 
 const { ccclass, property } = _decorator;
 
@@ -34,7 +34,11 @@ export class Symbol extends Component implements ISymbol {
 
     
     public highlight() : void {
-        this.spine.setAnimation(0, 'win');
+        this.spine.setAnimation(0, 'win', false);
+        this.spine.setCompleteListener(() => {
+            this.spine.setCompleteListener(null);
+            this.spine.setAnimation(0, "idle", true);
+        });
     }
     
     public remove() : void {

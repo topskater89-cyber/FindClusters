@@ -1,4 +1,4 @@
-import { ILocatedSymbol } from "./Abstract/ILocatedSymbol";
+import { ILocatedSymbol } from "../Abstract/ILocatedSymbol";
 
 export class Cluster {
     private symbols : ILocatedSymbol[];

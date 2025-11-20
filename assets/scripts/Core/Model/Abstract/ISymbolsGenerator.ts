@@ -1,8 +1,8 @@
 import { IEvent } from '../../../Utils/Abstract/IEvent';
-import { SymbolData } from '../SymbolData';
+import { SymbolData } from '../Structure/SymbolData';
 
 export interface ISymbolsGenerator {
     readonly OnBlocksGenerated: IEvent<void>;
 
-    generateBlocks() : SymbolData[][];
+    generateSymbols() : SymbolData[][];
 }

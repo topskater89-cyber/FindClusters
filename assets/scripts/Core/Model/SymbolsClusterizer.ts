@@ -1,11 +1,11 @@
 import { Event } from '../../Utils/Event';
 import { ISymbolClusterizatorData } from '../Data/Abstract/ISymbolClusterizatorData';
 import { _decorator } from 'cc';
-import { SymbolData } from './SymbolData';
+import { SymbolData } from './Structure/SymbolData';
 import { IEvent } from '../../Utils/Abstract/IEvent';
-import { MarkedSymbol } from './MarkedSymbol';
+import { MarkedSymbol } from './Structure/MarkedSymbol';
 import { ISymbolClusterizer } from './Abstract/ISymbolsClusterizer';
-import { Cluster } from './Cluster';
+import { Cluster } from './Structure/Cluster';
 
 export class SymbolsClusterizer implements ISymbolClusterizer {
     private data : ISymbolClusterizatorData;

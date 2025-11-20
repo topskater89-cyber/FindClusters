@@ -2,7 +2,7 @@ import { ISymbolsGenerator } from './Abstract/ISymbolsGenerator';
 import { _decorator } from 'cc';
 import { Event } from '../../Utils/Event';
 import { IEvent } from '../../Utils/Abstract/IEvent';
-import { SymbolData } from './SymbolData';
+import { SymbolData } from './Structure/SymbolData';
 import { ISymbolGeneratorData } from '../Data/Abstract/ISymbolGeneratorData';
 
 
@@ -23,7 +23,7 @@ export class SymbolsGenerator implements ISymbolsGenerator {
     }
 
     
-    public generateBlocks() : SymbolData[][] {
+    public generateSymbols() : SymbolData[][] {
         let blocks: SymbolData[][] = [];
 
         for (let row = 0; row < this.data.RowsCount; row++) {

@@ -4,6 +4,8 @@ import { IDependenciesContainer } from '../../Utils/Abstract/IDependenciesContai
 import { DebugUi } from '../../Core/View/DebugUi';
 import { GameModel } from '../../Core/Model/GameModel';
 import { ModelData } from '../../Core/Data/ModelData';
+import { TaskManager } from '../../Core/View/Task/TaskManager';
+import { TaskRunner } from '../../Core/View/Task/TaskRunner';
 
 const { ccclass, property } = _decorator;
 
@@ -19,9 +21,11 @@ export class DebugUiInstaller extends Installer {
     public Install(dependencies: IDependenciesContainer): void {     
         const modelData : ModelData = dependencies.get(ModelData);   
         const gameModel : GameModel = dependencies.get(GameModel);
+        const taskRunner : TaskRunner = dependencies.get(TaskRunner);
+
         const debugUi = instantiate(this.debugUi).getComponent(DebugUi);
 
-        debugUi.initialize(this.canvas.node);
+        debugUi.initialize(this.canvas.node, taskRunner.OnTasksEnded);
         debugUi.OnStartButtonClicked.subscribe(gameModel.compute.bind(gameModel));
 
         debugUi.RowsEBox.string = modelData.RowsCount.toString();

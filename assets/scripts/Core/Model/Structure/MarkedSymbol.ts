@@ -1,4 +1,4 @@
-import { ILocatedSymbol } from "./Abstract/ILocatedSymbol";
+import { ILocatedSymbol } from "../Abstract/ILocatedSymbol";
 import { SymbolData } from "./SymbolData";
 
 export class MarkedSymbol implements ILocatedSymbol {

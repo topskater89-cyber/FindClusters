@@ -1,10 +1,11 @@
 import { ISymbolClusterizer } from './Abstract/ISymbolsClusterizer';
 import { ISymbolsGenerator } from "./Abstract/ISymbolsGenerator";
-import { MarkedSymbol } from './MarkedSymbol';
+import { MarkedSymbol } from './Structure/MarkedSymbol';
 import { Event } from '../../Utils/Event';
 import { IEvent } from '../../Utils/Abstract/IEvent';
 import { IGameModel } from './Abstract/IGameModel';
-import { ComputedData } from './ComputedData';
+import { ComputedData } from './Structure/ComputedData';
+import { SymbolsDataMatrix } from './Structure/SymbolsDataMatrix';
 
 export class GameModel implements IGameModel {
 
@@ -25,10 +26,11 @@ export class GameModel implements IGameModel {
     }
 
     public compute(){
-        const symbols = this.generator.generateBlocks();
-        const clusterizedSymbols = this.clusterizer.findClusters(symbols);
+        const symbolsData = this.generator.generateSymbols();
+        const clusterizedSymbols = this.clusterizer.findClusters(symbolsData);
 
-        const computedData = new ComputedData(symbols, clusterizedSymbols);
+        const symbolsDataMatrix = new SymbolsDataMatrix(symbolsData);
+        const computedData = new ComputedData(symbolsDataMatrix, clusterizedSymbols);
 
         this._onComputeCompleted.invoke(computedData);
     }

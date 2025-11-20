@@ -3,16 +3,16 @@ import { IEvent } from '../../../Utils/Abstract/IEvent';
 import { Event } from '../../../Utils/Event';
 import { ISymbolsView } from '.././Abstract/ISymbolsView';
 import { ISymbolFactory } from '.././Abstract/ISymbolFactory';
-import { ComputedData } from '../../Model/ComputedData';
 import { ISymbol } from '.././Abstract/ISymbol';
-import { Cluster } from '../../Model/Cluster';
+import { Cluster } from '../../Model/Structure/Cluster';
+import { SymbolsDataMatrix } from '../../Model/Structure/SymbolsDataMatrix';
 
 
 export class SymbolsView implements ISymbolsView {
     private _onFieldFilled : Event<void>;
 
     private symbolsFactory : ISymbolFactory;
-    private field : ISymbol[][] = [[]];
+    private symbolsTable : ISymbol[][] = [[]];
 
 
     public get OnFieldFilled() : IEvent<void> {
@@ -25,46 +25,45 @@ export class SymbolsView implements ISymbolsView {
     }
 
 
-    public drawField(symbolsData: ComputedData): void {
-        this.clearField();
-
-        this.fillField(symbolsData);
+    public showSymbols(dataMatrix: SymbolsDataMatrix): void {
+        this.clearSymbols();
+        this.fillMatrix(dataMatrix);
 
         this._onFieldFilled.invoke();
     }
 
  
-    private highlightCluster(cluster : Cluster){
+    public highlightCluster(cluster : Cluster){
         cluster.Symbols.forEach(symbol =>{
-            this.field[symbol.Row][symbol.Column].highlight();
+            this.symbolsTable[symbol.Row][symbol.Column].highlight();
         });
     }
 
 
-    private clearField() : void {
-        const rows = this.field.length;
-        const columns = this.field[0].length;
+    private clearSymbols() : void {
+        const rows = this.symbolsTable.length;
+        const columns = this.symbolsTable[0].length;
 
         for (let row = 0; row < rows; row++) {
             for (let column = 0; column < columns; column++) 
-                this.field[row][column].remove();
+                this.symbolsTable[row][column].remove();
         }
 
-        this.field = [[]];
+        this.symbolsTable = [[]];
     }
 
 
-    private fillField(symbolsData: ComputedData) : void{
-        for (let row = 0; row < symbolsData.Rows; row++) {
-            this.field[row] = [];
+    private fillMatrix(dataMatrix: SymbolsDataMatrix) : void{
+        for (let row = 0; row < dataMatrix.Rows; row++) {
+            this.symbolsTable[row] = [];
 
-            for (let column = 0; column < symbolsData.Columns; column++) {
-                const symbolData = symbolsData.getSymbolData(row, column);
+            for (let column = 0; column < dataMatrix.Columns; column++) {
+                const symbolData = dataMatrix.getSymbolData(row, column);
                 const symbolView = this.symbolsFactory.create(symbolData.type);
 
-                this.field[row][column] = symbolView;
+                this.symbolsTable[row][column] = symbolView;
 
-                this.placeSymbol(symbolView, row, column, symbolsData.Rows, symbolsData.Columns);
+                this.placeSymbol(symbolView, row, column, dataMatrix.Rows, dataMatrix.Columns);
             }
         }
     }
