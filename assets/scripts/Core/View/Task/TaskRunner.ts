@@ -1,6 +1,5 @@
 import { ITask } from "../Abstract/ITask";
 import { IEvent } from "../../../Utils/Abstract/IEvent";
-import { IDelay } from "../../../Utils/Abstract/IDelay";
 import { Event } from "../../../Utils/Event";
 
 export class TaskRunner {
@@ -8,34 +7,28 @@ export class TaskRunner {
         return this._onTasksEnded;
     }
 
-    private delay : IDelay;
     private tasks : ITask[];
     
     private _onTasksEnded : Event<void>
 
 
-    public constructor(delay : IDelay) {
+    public constructor() {
         this._onTasksEnded = new Event();
-
-        this.delay = delay;
         this.tasks = [];
     }
 
-    public run(tasks : ITask[]){
+    public async run(tasks : ITask[]){
         this.tasks = tasks;
 
-        this.runTask()
+        for(let i = 0; i < this.tasks.length; i++){
+            await this.runTask(this.tasks[i])
+        }
+
+        this._onTasksEnded.invoke();
     }
 
-    private runTask() : void {
-       if(this.tasks.length !== 0){
-            const task = this.tasks.shift();
-
-            this.delay.delay(task.run(), this.runTask.bind(this)); 
-        }   
-        else{
-            this._onTasksEnded.invoke();
-        }            
+    private async runTask(task : ITask) {
+        return new Promise(resolve => setTimeout(resolve, task.run() * 1000));         
     }
 }
 

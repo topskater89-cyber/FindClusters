@@ -14,8 +14,7 @@ export class TaskManagerInstaller extends Installer {
         const gameModel = dependencies.get(GameModel);
         const symbolsView = dependencies.get(SymbolsView);
 
-        const delay = new Node("Task Runner Delay").addComponent(Delay);
-        const taskRunner = new TaskRunner(delay);
+        const taskRunner = new TaskRunner();
         const taskManager = new TaskManager(taskRunner, symbolsView);
 
         gameModel.OnComputeCompleted.subscribe(taskManager.run.bind(taskManager));
