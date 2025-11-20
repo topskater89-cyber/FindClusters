@@ -1,5 +1,5 @@
 export interface ITask {
-    run() : number;
+    run() : Promise<void>;
 }
 
 

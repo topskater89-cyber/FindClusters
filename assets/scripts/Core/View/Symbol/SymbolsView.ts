@@ -25,7 +25,7 @@ export class SymbolsView implements ISymbolsView {
     }
 
 
-    public showSymbols(dataMatrix: SymbolsDataMatrix): void {
+    public async showSymbols(dataMatrix: SymbolsDataMatrix) {
         this.clearSymbols();
         this.fillMatrix(dataMatrix);
 
@@ -33,10 +33,18 @@ export class SymbolsView implements ISymbolsView {
     }
 
  
-    public highlightCluster(cluster : Cluster){
-        cluster.Symbols.forEach(symbol =>{
-            this.symbolsTable[symbol.Row][symbol.Column].highlight();
-        });
+    public async highlightCluster(cluster : Cluster) {
+        let highlightedSymbols = 0;
+
+        await new Promise<void>((resolve) => cluster.Symbols.forEach(symbol => {
+            this.symbolsTable[symbol.Row][symbol.Column].highlight(() => {
+                highlightedSymbols++;
+                
+                if(highlightedSymbols === cluster.Symbols.length){
+                    resolve();
+                }
+            });
+        }));
     }
 
 

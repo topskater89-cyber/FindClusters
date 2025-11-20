@@ -13,10 +13,8 @@ export class HighlightCluster implements ITask {
         this.symbolsView = symbolsView;
     }
  
-    public run() : number{
-        this.symbolsView.highlightCluster(this.cluster);
-
-        return 0.5;
+    public async run() {
+        await this.symbolsView.highlightCluster(this.cluster);
     }
 }
 

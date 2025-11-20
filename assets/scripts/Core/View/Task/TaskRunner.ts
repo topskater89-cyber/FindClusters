@@ -21,14 +21,10 @@ export class TaskRunner {
         this.tasks = tasks;
 
         for(let i = 0; i < this.tasks.length; i++){
-            await this.runTask(this.tasks[i])
+              await this.tasks[i].run();
         }
 
         this._onTasksEnded.invoke();
-    }
-
-    private async runTask(task : ITask) {
-        return new Promise(resolve => setTimeout(resolve, task.run() * 1000));         
     }
 }
 

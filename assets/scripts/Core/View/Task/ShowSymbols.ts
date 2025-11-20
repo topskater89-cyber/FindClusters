@@ -21,10 +21,8 @@ export class ShowSymbols implements ITask {
         this.symbolsView = symbolsView;
     }
  
-    public run() : number {
-        this.symbolsView.showSymbols(this.dataMatrix);
-        
-        return 0;
+    public async run() {
+        return this.symbolsView.showSymbols(this.dataMatrix);
     }
 }
 

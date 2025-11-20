@@ -33,11 +33,13 @@ export class Symbol extends Component implements ISymbol {
     public get Type(): string { return this.type; }
 
     
-    public highlight() : void {
+    public highlight(callback?: () => void) {
         this.spine.setAnimation(0, 'win', false);
         this.spine.setCompleteListener(() => {
             this.spine.setCompleteListener(null);
             this.spine.setAnimation(0, "idle", true);
+
+            callback?.();
         });
     }
     

@@ -4,7 +4,6 @@ import { IDependenciesContainer } from '../../Utils/Abstract/IDependenciesContai
 import { TaskManager } from '../../Core/View/Task/TaskManager';
 import { GameModel } from '../../Core/Model/GameModel';
 import { SymbolsView } from '../../Core/View/Symbol/SymbolsView';
-import { Delay } from '../../Utils/Delay';
 import { TaskRunner } from '../../Core/View/Task/TaskRunner';
 const { ccclass, property } = _decorator;
 

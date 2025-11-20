@@ -5,7 +5,7 @@ export interface ISymbol {
     Height : number;
     Position : Vec2;
 
-    highlight() : void;
+    highlight(callback?: () => void) : void;
     remove(): void;
 }
 
