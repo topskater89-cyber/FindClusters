@@ -1,6 +1,5 @@
 import { ISymbolClusterizer } from './Abstract/ISymbolsClusterizer';
 import { ISymbolsGenerator } from "./Abstract/ISymbolsGenerator";
-import { MarkedSymbol } from './Structure/MarkedSymbol';
 import { Event } from '../../Utils/Event';
 import { IEvent } from '../../Utils/Abstract/IEvent';
 import { IGameModel } from './Abstract/IGameModel';

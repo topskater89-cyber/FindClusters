@@ -1,7 +1,5 @@
-import { director } from 'cc';
 import { IEvent } from '../../../Utils/Abstract/IEvent';
 import { Event } from '../../../Utils/Event';
-import { Cluster } from '../../Model/Structure/Cluster';
 import { ISymbolsView } from '../Abstract/ISymbolsView';
 import { ITask } from '../Abstract/ITask';
 import { SymbolsDataMatrix } from '../../Model/Structure/SymbolsDataMatrix';
