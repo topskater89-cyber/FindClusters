@@ -34,16 +34,20 @@ export class SymbolsView implements ISymbolsView {
 
  
     public async highlightCluster(cluster : Cluster) {
-        let highlightedSymbols = 0;
+        let highlightPromises : Promise<void>[] = [];
 
-        await new Promise<void>((resolve) => cluster.Symbols.forEach(symbol => {
-            this.symbolsTable[symbol.Row][symbol.Column].highlight(() => {
-                highlightedSymbols++;
-                
-                if(highlightedSymbols === cluster.Symbols.length)
+        cluster.Symbols.forEach(symbolData => {
+            const symbol = this.symbolsTable[symbolData.Row][symbolData.Column];
+            const promise = new Promise<void>((resolve) => {
+                symbol.highlight(() => {
                     resolve();
+                });
             });
-        }));
+                        
+            highlightPromises.push(promise);
+        });
+
+        await Promise.all(highlightPromises);
     }
 
 
